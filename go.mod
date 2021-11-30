@@ -1,4 +1,4 @@
-module github.com/alibabacloud-go/darabonba-array/golang
+module github.com/alibabacloud-go/darabonba-array
 
 go 1.14
 
