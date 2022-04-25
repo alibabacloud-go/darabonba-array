@@ -41,9 +41,11 @@ func Get(raw []*string, index *int) (_result *string) {
 }
 
 func Join(raw []*string, sep *string) (_result *string) {
-	res := tea.StringValue(_result)
-	for _, v := range raw {
-		res = res + tea.StringValue(v) + tea.StringValue(sep)
+	res := ""
+	separator := ""
+	for _, value := range raw {
+		res = res + separator + tea.StringValue(value)
+		separator = tea.StringValue(sep)
 	}
 	return tea.String(res)
 }

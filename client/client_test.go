@@ -58,9 +58,18 @@ func TestGet(t *testing.T) {
 
 func TestJoin(t *testing.T) {
 	array := []string{"a", "b", "c", "d"}
-	sep := "e"
+	sep := ","
 	res := Join(tea.StringSlice(array), tea.String(sep))
-	utils.AssertEqual(t, "aebecede", tea.StringValue(res))
+	utils.AssertEqual(t, "a,b,c,d", tea.StringValue(res))
+	sep = ""
+	res = Join(tea.StringSlice(array), tea.String(sep))
+	utils.AssertEqual(t, "abcd", tea.StringValue(res))
+	res = Join(tea.StringSlice(array), nil)
+	utils.AssertEqual(t, "abcd", tea.StringValue(res))
+	array = []string{"a"}
+	sep = ","
+	res = Join(tea.StringSlice(array), tea.String(sep))
+	utils.AssertEqual(t, "a", tea.StringValue(res))
 }
 
 func TestAscSort(t *testing.T) {
