@@ -83,3 +83,30 @@ func TestDescSort(t *testing.T) {
 	res := DescSort(tea.StringSlice(array))
 	utils.AssertEqual(t, []string{"j", "g", "d", "c", "b", "a", "B"}, tea.StringSliceValue(res))
 }
+
+type Test struct {
+	Tasks []*Task `json:"Task,omitempty" xml:"Task,omitempty" type:"Repeated"`
+}
+
+type Task struct {
+	DataId *string `json:"DataId,omitempty" xml:"DataId,omitempty"`
+}
+
+func TestAppend(t *testing.T) {
+	Append(nil, tea.String("c"))
+	array := []*string{tea.String("a"), tea.String("b")}
+	Append(array, tea.String("c"))
+	// r := reflect.ValueOf(array)
+	// utils.AssertEqual(t, 3, r.Len())
+
+	Append(array, tea.Int(1))
+	// r = reflect.ValueOf(array)
+	// utils.AssertEqual(t, 4, r.Len())
+
+	test := &Test{}
+	tmp := &Task{
+		DataId: tea.String("test"),
+	}
+	test.Tasks = []*Task{tmp}
+	Append(test.Tasks, tea.ToMap(tmp))
+}

@@ -5,6 +5,7 @@
 package client
 
 import (
+	"reflect"
 	"sort"
 
 	"github.com/alibabacloud-go/tea/tea"
@@ -70,4 +71,20 @@ func DescSort(raw []*string) (_result []*string) {
 		slice[len(slice)-1-i] = temp
 	}
 	return tea.StringSlice(slice)
+}
+
+/**
+ * append any array item
+ */
+func Append(array interface{}, item interface{}) {
+	r := reflect.ValueOf(array)
+	if r.Kind().String() == "array" || r.Kind().String() == "slice" {
+		aLen := r.Len()
+		res := make([]interface{}, 0)
+		for i := 0; i < aLen; i++ {
+			res = append(res, r.Index(i).Interface())
+		}
+		res = append(res, item)
+		tea.Convert(res, &array)
+	}
 }
